@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate Now & Save Tax | SIDRA Foundation</title>
+  <meta name="description" content="Donate to SIDRA Foundation educational and charitable activities. 80G tax benefit available. WhatsApp PAN card to +91 7624 852 616 for tax receipt.">
+  <link rel="icon" href="images/hero_education.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="logo-brand">
+        <div class="logo-icon">S</div>
+        <div class="logo-text">
+          <span class="logo-title">SIDRA</span>
+          <span class="logo-subtitle">FOUNDATION</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="index.html#ventures" class="nav-link">Ventures</a></li>
+          <li><a href="index.html#clubs" class="nav-link">Clubs</a></li>
+          <li><a href="index.html#education" class="nav-link">Education</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="donate.html" class="btn btn-primary btn-donate-trigger">
+            <i class="bi bi-heart-fill"></i> DONATE NOW
+          </a>
+        </div>
+      </nav>
+
+      <button class="mobile-toggle" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section class="section section-light" style="padding: 3.5rem 0 3rem 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container text-center">
+      <span class="section-subtitle">Make an Impact</span>
+      <h1 class="section-title">Donate & Save Tax</h1>
+      <p class="section-desc">Your donation can make twice the impact! Donate now and save tax under 80G. Join us in making a difference today.</p>
+    </div>
+  </section>
+
+  <!-- Donation Portal Section -->
+  <section class="section section-white">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: flex-start;">
+        <!-- Left: Donation Form -->
+        <div class="contact-form-container">
+          <h3 style="font-size: 1.5rem; color: var(--dark-green); margin-bottom: 1.25rem;">Select Contribution Amount</h3>
+          
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <button class="btn btn-outline pg-amount-btn" data-val="500">₹500</button>
+            <button class="btn btn-outline pg-amount-btn active" data-val="1000" style="background: var(--dark-green); color: #fff;">₹1,000</button>
+            <button class="btn btn-outline pg-amount-btn" data-val="2500">₹2,500</button>
+            <button class="btn btn-outline pg-amount-btn" data-val="5000">₹5,000</button>
+            <button class="btn btn-outline pg-amount-btn" data-val="10000">₹10,000</button>
+          </div>
+
+          <form id="donation-portal-form">
+            <div class="form-group">
+              <label class="form-label">Custom Donation Amount (₹)</label>
+              <input type="number" id="pg-amount-input" class="form-input" value="1000" min="100" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Select Primary Program</label>
+              <select class="form-input" id="pg-program-select">
+                <option>General Education & Rural Support</option>
+                <option>Langar e Khwaja (Food Relief)</option>
+                <option>Safe Water Mission (Handpump Installation)</option>
+                <option>SIDRA Primary Academies (SIDRA ALIF)</option>
+                <option>SIDRA Integrated Studies Institutions</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" placeholder="Donor name" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" placeholder="Donor email" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Mobile Number</label>
+              <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 0.9rem;">
+              <i class="bi bi-shield-lock-fill"></i> PROCEED TO SECURE PAYMENT
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: Tax Benefit & Direct Bank Details -->
+        <div>
+          <div style="background-color: var(--light-green); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light); margin-bottom: 2rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+              <i class="bi bi-file-earmark-check-fill" style="font-size: 1.75rem; color: var(--dark-green);"></i>
+              <h3 style="font-size: 1.35rem; color: var(--dark-green);">80G Tax Receipt Guidelines</h3>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1rem;">
+              Tax deductibility of donations may vary; consult a tax advisor for guidance. To claim your 80G tax exemption certificate, please send a WhatsApp message containing:
+            </p>
+            <ul style="list-style: disc; margin-left: 1.25rem; font-size: 0.92rem; color: var(--text-dark); margin-bottom: 1.25rem;">
+              <li>Your Full PAN Card Copy / PAN Number</li>
+              <li>Donation Payment Receipt / Transaction Reference</li>
+              <li>Donor Full Name & Postal Address</li>
+            </ul>
+            <a href="https://wa.me/917624852616" target="_blank" class="btn btn-dark" style="width: 100%;">
+              <i class="bi bi-whatsapp"></i> WhatsApp PAN Details to +91 7624 852 616
+            </a>
+          </div>
+
+          <!-- Direct Bank Transfer Info -->
+          <div style="background-color: var(--white); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; color: var(--dark-green); margin-bottom: 1rem;">Direct Bank Transfer Details</h3>
+            <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-dark);">
+              <div><strong>Account Name:</strong> SIDRA FOUNDATION</div>
+              <div><strong>Bank Name:</strong> State Bank of India (SBI)</div>
+              <div><strong>Account Number:</strong> 4028XXXXXXX</div>
+              <div><strong>IFSC Code:</strong> SBIN00XXXXX</div>
+              <div><strong>Branch:</strong> Pune / Bagalkot</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container text-center">
+      <p>© 2026 SIDRA Foundation. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    const pgBtns = document.querySelectorAll('.pg-amount-btn');
+    const pgInput = document.getElementById('pg-amount-input');
+    pgBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        pgBtns.forEach(b => {
+          b.style.background = 'transparent';
+          b.style.color = 'var(--dark-green)';
+        });
+        btn.style.background = 'var(--dark-green)';
+        btn.style.color = '#fff';
+        pgInput.value = btn.getAttribute('data-val');
+      });
+    });
+
+    document.getElementById('donation-portal-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const amount = pgInput.value || 1000;
+      showToast(`Initiating donation process for ₹${amount}. Thank you for your support!`, 'success');
+    });
+  </script>
+</body>
+</html>
