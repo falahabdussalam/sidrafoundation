@@ -407,6 +407,22 @@ ul {
   align-items: center;
   gap: 1rem;
   border-left: 4px solid var(--primary-green);
+  animation: floatY 4s ease-in-out infinite;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 4px 14px rgba(121, 184, 107, 0.35); }
+  50% { box-shadow: 0 8px 25px rgba(121, 184, 107, 0.6); }
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 
 .hero-badge-icon {
@@ -1014,12 +1030,19 @@ ul {
 .award-box {
   background-color: var(--white);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-light);
+  border: 1.5px solid rgba(121, 184, 107, 0.35);
   box-shadow: var(--shadow-md);
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
+  transition: var(--transition);
+}
+
+.award-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(47, 107, 60, 0.15);
+  border-color: var(--primary-green);
 }
 
 .award-content {
@@ -1037,6 +1060,8 @@ ul {
   padding: 0.4rem 1rem;
   border-radius: var(--radius-pill);
   margin-bottom: 1.25rem;
+  animation: badgePulse 2.5s infinite ease-in-out;
+  border: 1px solid #fde68a;
 }
 
 .award-title {
@@ -1045,11 +1070,21 @@ ul {
   margin-bottom: 1rem;
 }
 
+.award-img-wrapper {
+  overflow: hidden;
+  height: 100%;
+}
+
 .award-img {
   width: 100%;
   height: 100%;
-  min-height: 380px;
+  min-height: 400px;
   object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.award-box:hover .award-img {
+  transform: scale(1.05);
 }
 
 /* --- Donation Section --- */
