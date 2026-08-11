@@ -202,8 +202,8 @@ function initVideoModal() {
     modal.id = 'video-modal';
     modal.className = 'modal-overlay';
     modal.innerHTML = `
-      <div class="modal-card" style="max-width: 800px; padding: 1rem; background: #000;">
-        <button class="modal-close" style="color: #fff; font-size: 2rem; z-index: 10;">&times;</button>
+      <div class="modal-card" style="max-width: 850px; padding: 1rem; background: #000; box-shadow: 0 20px 50px rgba(0,0,0,0.8);">
+        <button class="modal-close" style="color: #fff; font-size: 2rem; z-index: 10; top: 0.5rem; right: 1rem;">&times;</button>
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
           <iframe id="video-frame" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -217,11 +217,24 @@ function initVideoModal() {
   const videoFrame = modal.querySelector('#video-frame');
   const closeBtn = modal.querySelector('.modal-close');
 
+  function getYouTubeEmbedUrl(url) {
+    if (!url) return "https://www.youtube.com/embed/3i3bupyjwuo?autoplay=1";
+    let videoId = "3i3bupyjwuo";
+    if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1].split('?')[0].split('&')[0];
+    } else if (url.includes('v=')) {
+      videoId = url.split('v=')[1].split('&')[0];
+    } else if (url.includes('/embed/')) {
+      videoId = url.split('/embed/')[1].split('?')[0];
+    }
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  }
+
   videoBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      // Default SIDRA foundation video
-      videoFrame.src = "https://www.youtube.com/embed/M1KJIWgNAE8?autoplay=1";
+      const href = btn.getAttribute('href') || btn.getAttribute('data-video-url');
+      videoFrame.src = getYouTubeEmbedUrl(href);
       modal.classList.add('active');
     });
   });
@@ -283,51 +296,97 @@ function initContactForm() {
 /* --- 9. Donation Modal & Tax Calculator --- */
 function initDonationModal() {
   const donateBtns = document.querySelectorAll('.btn-donate-trigger, a[href="/payment"], a[href="donate.html"]');
-  
+  const upiId = "sidrafoundation.62303943@hdfcbank";
+
   let modal = document.getElementById('donate-modal');
-  if (!modal && donateBtns.length > 0) {
+  if (!modal) {
     modal = document.createElement('div');
     modal.id = 'donate-modal';
     modal.className = 'modal-overlay';
     modal.innerHTML = `
       <div class="modal-card">
-        <button class="modal-close">&times;</button>
-        <div class="text-center" style="margin-bottom: 1.5rem;">
-          <span class="mission-tag">SIDRA FOUNDATION</span>
-          <h3 style="color: var(--dark-green); font-size: 1.75rem; margin-top: 0.25rem;">Make a Difference Today</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">Your donation is eligible for 80G Tax Exemption.</p>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        
+        <!-- Step 1: Select Amount -->
+        <div id="donate-step-1">
+          <div class="text-center" style="margin-bottom: 1.5rem;">
+            <span class="mission-tag">SIDRA FOUNDATION</span>
+            <h3 style="color: var(--dark-green); font-size: 1.75rem; margin-top: 0.25rem;">Make a Difference Today</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Your donation is eligible for 80G Tax Exemption.</p>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <button class="btn btn-outline amount-btn" data-amount="500">₹500</button>
+            <button class="btn btn-outline amount-btn active" data-amount="1000" style="background: var(--dark-green); color: #fff;">₹1,000</button>
+            <button class="btn btn-outline amount-btn" data-amount="2500">₹2,500</button>
+            <button class="btn btn-outline amount-btn" data-amount="5000">₹5,000</button>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Custom Amount (₹)</label>
+            <input type="number" id="custom-amount" class="form-input" value="1000" placeholder="Enter amount">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Select Cause</label>
+            <select id="donation-cause" class="form-input">
+              <option>General Education & Volunteering</option>
+              <option>Langar e Khwaja (Food Relief)</option>
+              <option>Safe Water Mission (Handpumps)</option>
+              <option>SIDRA Primary Academies</option>
+            </select>
+          </div>
+
+          <div style="background: var(--light-green); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; border: 1px solid var(--border-light);">
+            <div style="font-size: 0.85rem; color: var(--dark-green); font-weight: 700;">80G Tax Exemption Notice</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
+              For tax receipt, WhatsApp your PAN card & payment details to <strong>+91 7624 852 616</strong>.
+            </div>
+          </div>
+
+          <button id="proceed-donate-btn" class="btn btn-primary" style="width: 100%;">
+            <i class="bi bi-qr-code-scan"></i> PROCEED TO SCAN QR CODE
+          </button>
         </div>
 
-        <div style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem;">
-          <button class="btn btn-outline amount-btn" data-amount="500">₹500</button>
-          <button class="btn btn-outline amount-btn active" data-amount="1000" style="background: var(--dark-green); color: #fff;">₹1,000</button>
-          <button class="btn btn-outline amount-btn" data-amount="2500">₹2,500</button>
-          <button class="btn btn-outline amount-btn" data-amount="5000">₹5,000</button>
-        </div>
+        <!-- Step 2: QR Code View -->
+        <div id="donate-step-2" style="display: none;" class="qr-modal-container">
+          <div class="text-center" style="margin-bottom: 0.5rem;">
+            <span class="mission-tag">SIDRA FOUNDATION</span>
+            <h3 style="color: var(--dark-green); font-size: 1.5rem; margin-top: 0.25rem;">Scan QR to Complete Donation</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;" id="qr-amount-display">Amount: ₹1,000</p>
+          </div>
 
-        <div class="form-group">
-          <label class="form-label">Custom Amount (₹)</label>
-          <input type="number" id="custom-amount" class="form-input" value="1000" placeholder="Enter amount">
-        </div>
+          <div class="qr-image-card">
+            <img src="images/donate_qr.jpg" alt="SIDRA Foundation UPI QR Code">
+            <div class="qr-badge"><i class="bi bi-shield-check"></i> HDFC Verified UPI QR</div>
+          </div>
 
-        <div class="form-group">
-          <label class="form-label">Select Cause</label>
-          <select id="donation-cause" class="form-input">
-            <option>General Education & Volunteering</option>
-            <option>Langar e Khwaja (Food Relief)</option>
-            <option>Safe Water Mission (Handpumps)</option>
-            <option>SIDRA Primary Academies</option>
-          </select>
-        </div>
+          <div class="upi-id-box">
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">UPI ID (VPA)</div>
+              <div class="upi-id-code">${upiId}</div>
+            </div>
+            <button class="btn-copy-upi" id="copy-upi-btn" title="Copy UPI ID">
+              <i class="bi bi-copy"></i> Copy
+            </button>
+          </div>
 
-        <div style="background: var(--light-green); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; border: 1px solid var(--border-light);">
-          <div style="font-size: 0.85rem; color: var(--dark-green); font-weight: 700;">80G Tax Exemption Notice</div>
-          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
-            For tax receipt, WhatsApp your PAN card & payment details to <strong>+91 7624 852 616</strong>.
+          <div class="upi-action-btns">
+            <a id="direct-upi-link" href="upi://pay?pa=${upiId}&pn=SIDRA%20FOUNDATION&cu=INR" class="btn-upi-app">
+              <i class="bi bi-wallet2"></i> Pay via GPay / PhonePe / Paytm
+            </a>
+            <a href="https://wa.me/917624852616?text=Hello%20SIDRA%20Foundation,%20I%20have%20sent%20a%20donation.%20Please%20find%20my%20details." target="_blank" class="btn-whatsapp-tax">
+              <i class="bi bi-whatsapp"></i> Send Receipt for 80G Tax Exemption
+            </a>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <button id="back-to-step-1" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 1rem;">
+              <i class="bi bi-arrow-left"></i> Change Amount / Cause
+            </button>
           </div>
         </div>
-
-        <button id="proceed-donate-btn" class="btn btn-primary" style="width: 100%;">PROCEED TO DONATE</button>
       </div>
     `;
     document.body.appendChild(modal);
@@ -336,6 +395,13 @@ function initDonationModal() {
     const amountBtns = modal.querySelectorAll('.amount-btn');
     const customInput = modal.querySelector('#custom-amount');
     const proceedBtn = modal.querySelector('#proceed-donate-btn');
+    const backBtn = modal.querySelector('#back-to-step-1');
+    const copyBtn = modal.querySelector('#copy-upi-btn');
+
+    const step1 = modal.querySelector('#donate-step-1');
+    const step2 = modal.querySelector('#donate-step-2');
+    const qrAmountDisplay = modal.querySelector('#qr-amount-display');
+    const directUpiLink = modal.querySelector('#direct-upi-link');
 
     amountBtns.forEach(b => {
       b.addEventListener('click', () => {
@@ -354,22 +420,72 @@ function initDonationModal() {
       if (e.target === modal) modal.classList.remove('active');
     });
 
+    function showQRStep(amount) {
+      const amt = amount || customInput.value || 1000;
+      qrAmountDisplay.textContent = `Selected Donation Amount: ₹${Number(amt).toLocaleString('en-IN')}`;
+      directUpiLink.href = `upi://pay?pa=${upiId}&pn=SIDRA%20FOUNDATION&cu=INR&am=${amt}`;
+      step1.style.display = 'none';
+      step2.style.display = 'block';
+    }
+
     proceedBtn.addEventListener('click', () => {
-      const amount = customInput.value || 1000;
-      showToast(`Thank you! Proceeding to secure donation of ₹${amount}...`, 'success');
-      setTimeout(() => {
-        window.location.href = 'donate.html';
-      }, 1200);
+      showQRStep();
     });
+
+    backBtn.addEventListener('click', () => {
+      step2.style.display = 'none';
+      step1.style.display = 'block';
+    });
+
+    copyBtn.addEventListener('click', () => {
+      copyTextToClipboard(upiId);
+      copyBtn.innerHTML = '<i class="bi bi-check2"></i> Copied!';
+      showToast('UPI ID copied to clipboard!', 'success');
+      setTimeout(() => {
+        copyBtn.innerHTML = '<i class="bi bi-copy"></i> Copy';
+      }, 2500);
+    });
+
+    // Make modal opener globally accessible
+    window.openDonateQRModal = function(amount, directToQR = false) {
+      if (amount) customInput.value = amount;
+      if (directToQR) {
+        showQRStep(amount);
+      } else {
+        step2.style.display = 'none';
+        step1.style.display = 'block';
+      }
+      modal.classList.add('active');
+    };
   }
 
   donateBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      if (btn.getAttribute('href') === 'donate.html') return; // Allow normal link if intended
       e.preventDefault();
-      if (modal) modal.classList.add('active');
+      if (window.openDonateQRModal) {
+        window.openDonateQRModal();
+      } else if (modal) {
+        modal.classList.add('active');
+      }
     });
   });
+}
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  }
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  try {
+    document.execCommand('copy');
+  } catch (err) {}
+  document.body.removeChild(textarea);
+  return Promise.resolve();
 }
 
 /* --- 10. Toast Helper Function --- */

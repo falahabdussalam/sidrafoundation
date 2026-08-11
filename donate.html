@@ -105,8 +105,34 @@
           </form>
         </div>
 
-        <!-- Right: Tax Benefit & Direct Bank Details -->
+        <!-- Right: Tax Benefit, UPI QR & Direct Bank Details -->
         <div>
+          <!-- Direct UPI QR Code Card -->
+          <div style="background-color: var(--white); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem; text-align: center;">
+            <h3 style="font-size: 1.25rem; color: var(--dark-green); margin-bottom: 0.5rem;">
+              <i class="bi bi-qr-code-scan"></i> Instant UPI QR Payment
+            </h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Scan with Google Pay, PhonePe, Paytm, BHIM, or any UPI app
+            </p>
+            <div class="qr-image-card" style="margin: 0 auto 1rem auto; display: inline-block;">
+              <img src="images/donate_qr.jpg" alt="SIDRA Foundation UPI QR Code" style="width: 200px; height: 200px; object-fit: contain;">
+              <div class="qr-badge"><i class="bi bi-shield-check"></i> HDFC Verified UPI QR</div>
+            </div>
+            <div class="upi-id-box" style="margin-bottom: 1rem;">
+              <div style="text-align: left;">
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">UPI ID (VPA)</div>
+                <div class="upi-id-code" style="font-size: 0.88rem;">sidrafoundation.62303943@hdfcbank</div>
+              </div>
+              <button class="btn-copy-upi" type="button" onclick="copyTextToClipboard('sidrafoundation.62303943@hdfcbank'); showToast('UPI ID copied to clipboard!', 'success');">
+                <i class="bi bi-copy"></i> Copy
+              </button>
+            </div>
+            <a href="upi://pay?pa=sidrafoundation.62303943@hdfcbank&pn=SIDRA%20FOUNDATION&cu=INR" class="btn-upi-app" style="width: 100%;">
+              <i class="bi bi-wallet2"></i> Pay via UPI App (GPay / PhonePe / Paytm)
+            </a>
+          </div>
+
           <div style="background-color: var(--light-green); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light); margin-bottom: 2rem;">
             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
               <i class="bi bi-file-earmark-check-fill" style="font-size: 1.75rem; color: var(--dark-green);"></i>
@@ -130,10 +156,9 @@
             <h3 style="font-size: 1.25rem; color: var(--dark-green); margin-bottom: 1rem;">Direct Bank Transfer Details</h3>
             <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-dark);">
               <div><strong>Account Name:</strong> SIDRA FOUNDATION</div>
-              <div><strong>Bank Name:</strong> State Bank of India (SBI)</div>
-              <div><strong>Account Number:</strong> 4028XXXXXXX</div>
-              <div><strong>IFSC Code:</strong> SBIN00XXXXX</div>
-              <div><strong>Branch:</strong> Pune / Bagalkot</div>
+              <div><strong>Bank Name:</strong> HDFC Bank / SBI</div>
+              <div><strong>UPI ID:</strong> sidrafoundation.62303943@hdfcbank</div>
+              <div><strong>WhatsApp Exemption:</strong> +91 7624 852 616</div>
             </div>
           </div>
         </div>
@@ -167,7 +192,11 @@
     document.getElementById('donation-portal-form').addEventListener('submit', (e) => {
       e.preventDefault();
       const amount = pgInput.value || 1000;
-      showToast(`Initiating donation process for ₹${amount}. Thank you for your support!`, 'success');
+      if (window.openDonateQRModal) {
+        window.openDonateQRModal(amount, true);
+      } else {
+        showToast(`Proceeding to scan QR code for ₹${amount}...`, 'success');
+      }
     });
   </script>
 </body>
