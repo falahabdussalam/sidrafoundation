@@ -33,6 +33,7 @@
           <li><a href="#ventures" class="nav-link">Ventures</a></li>
           <li><a href="#clubs" class="nav-link">Clubs</a></li>
           <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#news-events" class="nav-link">News & Events</a></li>
           <li><a href="gallery.html" class="nav-link">Gallery</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
@@ -51,21 +52,32 @@
 
   <!-- ======= Hero Section ======= -->
   <section class="hero" id="home">
+    <!-- Animated High-Visibility Background Slideshow -->
+    <div class="hero-slider-bg">
+      <div class="hero-bg-slide active" style="background-image: url('images/bg_slide1.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('images/bg_slide2.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('images/bg_slide3.jpg');"></div>
+      <div class="hero-bg-slide" style="background-image: url('images/hero_education.jpg');"></div>
+    </div>
+    <div class="hero-slider-overlay"></div>
+
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content">
-          <div class="hero-tag">
-            <i class="bi bi-patch-check-fill"></i> SIDRA FOUNDATION
+          <div class="hero-tag hero-tag-glow">
+            <i class="bi bi-patch-check-fill"></i> SIDRA FOUNDATION GROUND INITIATIVES
           </div>
-          <h1 class="hero-title">
+          <h1 class="hero-title hero-title-light">
             “Promising a Successful India through Value Education and Altruistic Volunteering”
           </h1>
-          <p class="hero-desc">
+          <p class="hero-desc hero-desc-light">
             Empowering rural communities through value-based education, social development, volunteering and humanitarian initiatives.
           </p>
           <div class="hero-actions">
             <a href="#about" class="btn btn-primary">GET STARTED</a>
-            <a href="donate.html" class="btn btn-dark btn-donate-trigger">DONATE NOW</a>
+            <a href="donate.html" class="btn btn-dark btn-donate-trigger" style="background: #ffffff; color: var(--dark-green); font-weight:700;">
+              <i class="bi bi-heart-fill" style="color: #e63946;"></i> DONATE NOW
+            </a>
             <a href="https://youtu.be/3i3bupyjwuo?si=0YJNewhGJcSos6DC" class="btn btn-video btn-watch-video" target="_blank" data-video-id="3i3bupyjwuo">
               <i class="bi bi-play-circle-fill"></i> WATCH VIDEO
             </a>
@@ -73,8 +85,23 @@
         </div>
 
         <div class="hero-image-wrapper">
-          <div class="hero-bg-shape"></div>
-          <img src="images/hero_education.jpg" alt="SIDRA Foundation Rural Education Initiative" class="hero-image">
+          <div class="hero-slider-frame">
+            <img src="images/bg_slide1.jpg" alt="Community Education Drive" class="hero-slide-img active">
+            <img src="images/bg_slide2.jpg" alt="Safe Water Mission Handpump Launch" class="hero-slide-img">
+            <img src="images/bg_slide3.jpg" alt="SIDRA Primary Academies Leadership" class="hero-slide-img">
+            <img src="images/hero_education.jpg" alt="SIDRA Rural Education Initiative" class="hero-slide-img">
+
+            <div class="hero-slider-controls">
+              <button class="hero-slider-btn prev-btn" aria-label="Previous Slide"><i class="bi bi-chevron-left"></i></button>
+              <button class="hero-slider-btn next-btn" aria-label="Next Slide"><i class="bi bi-chevron-right"></i></button>
+            </div>
+            <div class="hero-dots-indicator">
+              <span class="hero-dot active" data-slide="0"></span>
+              <span class="hero-dot" data-slide="1"></span>
+              <span class="hero-dot" data-slide="2"></span>
+              <span class="hero-dot" data-slide="3"></span>
+            </div>
+          </div>
           <div class="hero-badge">
             <div class="hero-badge-icon">
               <i class="bi bi-mortarboard-fill"></i>
@@ -541,6 +568,90 @@
         <div class="award-img-wrapper">
           <img src="images/khidma_award.jpg" alt="Usthad Shihabuddin Nurani receiving Khidma Award 2024" class="award-img">
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= News & Events Section ======= -->
+  <section class="section section-alt" id="news-events">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle">GROUND UPDATES & IMPACT</span>
+        <h2 class="section-title">Latest News & Events</h2>
+        <p class="section-desc">
+          Explore recent community gatherings, clean water initiatives, student leadership celebrations, and social awards.
+        </p>
+      </div>
+
+      <div class="news-grid">
+        <!-- News Item 1 -->
+        <article class="news-card">
+          <div class="news-img-box">
+            <img src="images/bg_slide1.jpg" alt="Community Value Education & Volunteering Drive" class="news-img">
+            <span class="news-badge-tag">Community Event</span>
+          </div>
+          <div class="news-body">
+            <div>
+              <div class="news-meta">
+                <span><i class="bi bi-calendar-event"></i> August 2026</span>
+                <span><i class="bi bi-geo-alt"></i> Rural Neighborhoods</span>
+              </div>
+              <h3 class="news-title">Community Value Education & Interactive Moral Storytelling Workshop</h3>
+              <p class="news-excerpt">
+                SIDRA Foundation volunteers organized interactive outdoor workshops and value education storytelling sessions for over 200 rural youth, fostering leadership and communal harmony.
+              </p>
+            </div>
+            <button type="button" class="news-btn-link" onclick="showToast('Event Details: Community Value Education Workshop - August 2026. Conducted across 5 rural clusters.', 'success')">
+              Read Full Story <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- News Item 2 -->
+        <article class="news-card">
+          <div class="news-img-box">
+            <img src="images/bg_slide2.jpg" alt="Safe Water Mission Handpump Inauguration" class="news-img">
+            <span class="news-badge-tag">Safe Water Mission</span>
+          </div>
+          <div class="news-body">
+            <div>
+              <div class="news-meta">
+                <span><i class="bi bi-calendar-event"></i> July 2026</span>
+                <span><i class="bi bi-geo-alt"></i> Bagalkot, Karnataka</span>
+              </div>
+              <h3 class="news-title">Clean Drinking Water Handpump Inauguration Ceremony</h3>
+              <p class="news-excerpt">
+                Providing clean, accessible drinking water to 50+ underprivileged rural families. Villagers gathered to celebrate the new handpump installation under SIDRA's Safe Water Initiative.
+              </p>
+            </div>
+            <button type="button" class="news-btn-link" onclick="showToast('Safe Water Mission: Clean drinking water handpump successfully installed and dedicated to local families.', 'success')">
+              Read Full Story <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- News Item 3 -->
+        <article class="news-card">
+          <div class="news-img-box">
+            <img src="images/bg_slide3.jpg" alt="SIDRA Primary Academy Leadership Convocation" class="news-img">
+            <span class="news-badge-tag">Primary Education</span>
+          </div>
+          <div class="news-body">
+            <div>
+              <div class="news-meta">
+                <span><i class="bi bi-calendar-event"></i> June 2026</span>
+                <span><i class="bi bi-geo-alt"></i> SIDRA ALIF Academies</span>
+              </div>
+              <h3 class="news-title">SIDRA Primary Academies Character & Leadership Assembly</h3>
+              <p class="news-excerpt">
+                Honoring over 150 primary students completing integrated value education, ethics training, and foundational academic achievements under SIDRA mentors.
+              </p>
+            </div>
+            <button type="button" class="news-btn-link" onclick="showToast('SIDRA Academies: 150+ students recognized for excellence in moral education and academics.', 'success')">
+              Read Full Story <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </article>
       </div>
     </div>
   </section>

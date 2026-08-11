@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initVideoModal();
   initContactForm();
   initDonationModal();
+  initHeroSlider();
   initScrollReveal();
 });
 
@@ -554,4 +555,69 @@ function initScrollReveal() {
     el.style.transition = 'all 0.5s ease-out';
     observer.observe(el);
   });
+}
+
+/* --- 12. Hero Background Slideshow & Interactive Slider --- */
+function initHeroSlider() {
+  const bgSlides = document.querySelectorAll('.hero-bg-slide');
+  const frameImages = document.querySelectorAll('.hero-slide-img');
+  const dots = document.querySelectorAll('.hero-dot');
+  const prevBtn = document.querySelector('.hero-slider-controls .prev-btn');
+  const nextBtn = document.querySelector('.hero-slider-controls .next-btn');
+
+  if (bgSlides.length === 0 && frameImages.length === 0) return;
+
+  let currentIndex = 0;
+  const totalSlides = Math.max(bgSlides.length, frameImages.length);
+  let autoSlideTimer = null;
+
+  function goToSlide(index) {
+    currentIndex = (index + totalSlides) % totalSlides;
+
+    bgSlides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === currentIndex);
+    });
+
+    frameImages.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(() => {
+      goToSlide(currentIndex + 1);
+    }, 4500);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideTimer) clearInterval(autoSlideTimer);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentIndex - 1);
+      startAutoSlide();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentIndex + 1);
+      startAutoSlide();
+    });
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      goToSlide(i);
+      startAutoSlide();
+    });
+  });
+
+  startAutoSlide();
 }
