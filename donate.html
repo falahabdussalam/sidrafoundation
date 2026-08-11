@@ -85,8 +85,8 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Full Name</label>
-              <input type="text" class="form-input" placeholder="Donor name" required>
+              <label class="form-label">Full Name / Donor Name</label>
+              <input type="text" id="pg-donor-name" class="form-input" placeholder="Enter full name" required>
             </div>
 
             <div class="form-group">
@@ -192,8 +192,9 @@
     document.getElementById('donation-portal-form').addEventListener('submit', (e) => {
       e.preventDefault();
       const amount = pgInput.value || 1000;
+      const donorName = document.getElementById('pg-donor-name')?.value || '';
       if (window.openDonateQRModal) {
-        window.openDonateQRModal(amount, true);
+        window.openDonateQRModal(amount, true, donorName);
       } else {
         showToast(`Proceeding to scan QR code for ₹${amount}...`, 'success');
       }

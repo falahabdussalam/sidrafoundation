@@ -323,6 +323,11 @@ function initDonationModal() {
           </div>
 
           <div class="form-group">
+            <label class="form-label"><i class="bi bi-person-fill"></i> Donor Name</label>
+            <input type="text" id="donor-name-input" class="form-input" placeholder="Enter your full name">
+          </div>
+
+          <div class="form-group">
             <label class="form-label">Custom Amount (₹)</label>
             <input type="number" id="custom-amount" class="form-input" value="1000" placeholder="Enter amount">
           </div>
@@ -376,14 +381,14 @@ function initDonationModal() {
             <a id="direct-upi-link" href="upi://pay?pa=${upiId}&pn=SIDRA%20FOUNDATION&cu=INR" class="btn-upi-app">
               <i class="bi bi-wallet2"></i> Pay via GPay / PhonePe / Paytm
             </a>
-            <a href="https://wa.me/917624852616?text=Hello%20SIDRA%20Foundation,%20I%20have%20sent%20a%20donation.%20Please%20find%20my%20details." target="_blank" class="btn-whatsapp-tax">
+            <a id="whatsapp-tax-link" href="https://wa.me/917624852616?text=Hello%20SIDRA%20Foundation,%20I%20have%20sent%20a%20donation.%20Please%20find%20my%20details." target="_blank" class="btn-whatsapp-tax">
               <i class="bi bi-whatsapp"></i> Send Receipt for 80G Tax Exemption
             </a>
           </div>
 
           <div style="margin-top: 1rem;">
             <button id="back-to-step-1" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 1rem;">
-              <i class="bi bi-arrow-left"></i> Change Amount / Cause
+              <i class="bi bi-arrow-left"></i> Change Details / Cause
             </button>
           </div>
         </div>
@@ -393,7 +398,9 @@ function initDonationModal() {
 
     const closeBtn = modal.querySelector('.modal-close');
     const amountBtns = modal.querySelectorAll('.amount-btn');
+    const donorNameInput = modal.querySelector('#donor-name-input');
     const customInput = modal.querySelector('#custom-amount');
+    const causeSelect = modal.querySelector('#donation-cause');
     const proceedBtn = modal.querySelector('#proceed-donate-btn');
     const backBtn = modal.querySelector('#back-to-step-1');
     const copyBtn = modal.querySelector('#copy-upi-btn');
@@ -402,6 +409,7 @@ function initDonationModal() {
     const step2 = modal.querySelector('#donate-step-2');
     const qrAmountDisplay = modal.querySelector('#qr-amount-display');
     const directUpiLink = modal.querySelector('#direct-upi-link');
+    const whatsappTaxLink = modal.querySelector('#whatsapp-tax-link');
 
     amountBtns.forEach(b => {
       b.addEventListener('click', () => {
@@ -420,10 +428,29 @@ function initDonationModal() {
       if (e.target === modal) modal.classList.remove('active');
     });
 
-    function showQRStep(amount) {
+    function showQRStep(amount, donorName) {
       const amt = amount || customInput.value || 1000;
-      qrAmountDisplay.textContent = `Selected Donation Amount: ₹${Number(amt).toLocaleString('en-IN')}`;
+      const name = (donorName !== undefined && donorName !== '') ? donorName : (donorNameInput ? donorNameInput.value.trim() : '');
+      const cause = causeSelect ? causeSelect.value : 'General Education';
+
+      if (name) {
+        if (donorNameInput) donorNameInput.value = name;
+        qrAmountDisplay.innerHTML = `<span style="color: var(--dark-green); font-weight:700;">Donor: ${name}</span> &nbsp;|&nbsp; Amount: ₹${Number(amt).toLocaleString('en-IN')}`;
+      } else {
+        qrAmountDisplay.textContent = `Selected Donation Amount: ₹${Number(amt).toLocaleString('en-IN')}`;
+      }
+
       directUpiLink.href = `upi://pay?pa=${upiId}&pn=SIDRA%20FOUNDATION&cu=INR&am=${amt}`;
+
+      const waMsg = encodeURIComponent(
+        `Hello SIDRA Foundation, I have completed a donation of ₹${amt}` +
+        (name ? ` under the name "${name}"` : '') +
+        ` for ${cause}. Please find my payment details attached for 80G tax receipt.`
+      );
+      if (whatsappTaxLink) {
+        whatsappTaxLink.href = `https://wa.me/917624852616?text=${waMsg}`;
+      }
+
       step1.style.display = 'none';
       step2.style.display = 'block';
     }
@@ -447,10 +474,11 @@ function initDonationModal() {
     });
 
     // Make modal opener globally accessible
-    window.openDonateQRModal = function(amount, directToQR = false) {
+    window.openDonateQRModal = function(amount, directToQR = false, donorName = '') {
       if (amount) customInput.value = amount;
+      if (donorName && donorNameInput) donorNameInput.value = donorName;
       if (directToQR) {
-        showQRStep(amount);
+        showQRStep(amount, donorName);
       } else {
         step2.style.display = 'none';
         step1.style.display = 'block';
