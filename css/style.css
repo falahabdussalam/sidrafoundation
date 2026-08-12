@@ -58,8 +58,15 @@ body {
   background-color: var(--white);
   line-height: 1.6;
   font-size: var(--fs-base);
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+p, .hero-desc, .section-desc, .impact-desc, .news-excerpt, .venture-desc, .club-desc, .institution-desc, .gallery-caption {
+  font-weight: 300;
+  letter-spacing: 0.1px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -153,6 +160,32 @@ ul {
   color: var(--text-muted);
   max-width: 760px;
   margin: 0 auto;
+  font-weight: 300;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.6;
+}
+
+/* 3-Line Text Clamping Utility */
+.clamp-3,
+.hero-desc,
+.impact-desc,
+.news-excerpt,
+.venture-desc,
+.club-desc,
+.institution-desc,
+.beneficiary-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.6;
+  max-height: calc(1.6em * 3);
+  font-weight: 300;
 }
 
 /* --- Buttons --- */
@@ -236,19 +269,20 @@ ul {
   background-color: var(--white);
   z-index: 1000;
   transition: var(--transition);
-  border-bottom: 1px solid rgba(121, 184, 107, 0.2);
+  border-bottom: 1px solid rgba(121, 184, 107, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .site-header.scrolled {
   box-shadow: var(--shadow-md);
-  padding: 0.2rem 0;
+  padding: 0;
 }
 
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 76px;
 }
 
 .logo-brand {
@@ -258,7 +292,7 @@ ul {
 }
 
 .brand-logo-img {
-  height: 52px;
+  height: 48px;
   width: auto;
   object-fit: contain;
   transition: var(--transition);
@@ -271,33 +305,38 @@ ul {
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 1.75rem;
+  gap: clamp(0.75rem, 1.2vw, 1.5rem);
 }
 
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: clamp(0.5rem, 0.9vw, 1.15rem);
 }
 
 .nav-link {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: var(--fs-base);
+  font-size: clamp(0.82rem, 0.76rem + 0.26vw, 0.94rem);
   color: var(--text-dark);
   padding: 0.5rem 0.2rem;
   position: relative;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  display: inline-block;
+  transition: color 0.3s ease;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
   width: 0;
-  height: 2px;
-  background-color: var(--primary-green);
-  transition: var(--transition);
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-green), var(--dark-green));
+  border-radius: 3px;
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .nav-link:hover::after,
@@ -312,7 +351,15 @@ ul {
 }
 
 .nav-cta {
-  margin-left: 0.5rem;
+  margin-left: 0.25rem;
+}
+
+.nav-cta .btn {
+  padding: 0.55rem 1.25rem;
+  font-size: clamp(0.8rem, 0.74rem + 0.25vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 /* Mobile Hamburger Toggle */
