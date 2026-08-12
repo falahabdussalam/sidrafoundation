@@ -993,35 +993,40 @@ ul {
 /* --- Impact Statistics Section --- */
 .stats-section {
   background-color: var(--light-green);
-  padding: 4.5rem 0;
+  padding: clamp(2rem, 3.5vw, 3rem) 0;
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
 }
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(0.4rem, 0.9vw, 1.2rem);
   text-align: center;
+  align-items: center;
 }
 
 .stat-item {
-  padding: 1.5rem 1rem;
+  padding: 0.75rem 0.25rem;
 }
 
 .stat-number {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 1.6rem + 2.5vw, 3.25rem);
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 2.1rem);
   font-weight: 800;
   color: var(--dark-green);
-  line-height: 1;
-  margin-bottom: 0.5rem;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
 }
 
 .stat-label {
-  font-size: var(--fs-base);
+  font-size: clamp(0.72rem, 0.68rem + 0.22vw, 0.85rem);
   color: var(--text-dark);
-  font-weight: 600;
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: 0.1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* --- Ventures Section --- */
@@ -2003,15 +2008,19 @@ ul {
   }
 
   .stats-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem 0.5rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
   .primary-edu-box {
     padding: 1.75rem;
   }
